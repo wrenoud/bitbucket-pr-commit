@@ -1,0 +1,12 @@
+{
+    "name": "View Commit Message for Bitbucket Server",
+    "description": "Shows the commit message in a pull request when viewing a single commit.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [
+    {
+        "matches": ["https://secure.qps.nl/projects/*/repos/*/pull-requests/*"],
+        "css": ["commit.css"],
+        "js": ["content-script.js"]
+    }]
+}
