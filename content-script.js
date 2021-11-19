@@ -1,5 +1,5 @@
-const commitUrlRe = /^(?<site>.+)\/projects\/(?<project>.+)\/repos\/(?<repo>.+)\/pull-requests\/(?<pr>\d+)\/commits\/(?<commit>[a-f0-9]+)(?:#.*)?$/;
 var oldHref = document.location.href;
+const commitUrlRe = /^(?<site>.+)\/(?<type>projects|users)\/(?<project>.+)\/repos\/(?<repo>.+)\/pull-requests\/(?<pr>\d+)\/commits\/(?<commit>[a-f0-9]+)(?:#.*)?$/;
 
 // add a div to hold the message
 let commitMessage = document.createElement("div");
@@ -14,7 +14,13 @@ function UpdateCommitMessage(url)
     const match = commitUrlRe.exec(url);
     if(match !== null)
     {
-        apiCommit = `${match.groups.site}/rest/api/1.0/projects/${match.groups.project}/repos/${match.groups.repo}/commits/${match.groups.commit}`;
+        const site = match.groups.site;
+        const type = match.groups.type;
+        const project = match.groups.project;
+        const repo = match.groups.repo;
+        const commit = match.groups.commit;
+
+        apiCommit = `${site}/rest/api/1.0/${type}/${project}/repos/${repo}/commits/${commit}`;
         fetch(apiCommit)
             .then(response => response.json())
             .then(function(data){
