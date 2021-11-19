@@ -1,4 +1,3 @@
-var oldHref = document.location.href;
 const commitUrlRe = /^(?<site>.+)\/(?<type>projects|users)\/(?<project>.+)\/repos\/(?<repo>.+)\/pull-requests\/(?<pr>\d+)\/commits\/(?<commit>[a-f0-9]+)(?:#.*)?$/;
 
 // add a div to hold the message
@@ -34,6 +33,9 @@ function UpdateCommitMessage(url)
     }
 }
 
+// remember the previous location
+var oldHref = document.location.href;
+
 // create an DOM observer to watch for location changes and update the commit
 var globalObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -44,13 +46,7 @@ var globalObserver = new MutationObserver(function(mutations) {
         }
     });
 });
-
-var config = {
-    childList: true,
-    subtree: true
-};
-
-globalObserver.observe(document.querySelector("body"), config);
+globalObserver.observe(document.querySelector("body"), {childList: true, subtree: true});
 
 // make sure we check once on a fresh load
 window.addEventListener("load", () => {UpdateCommitMessage(oldHref);});
