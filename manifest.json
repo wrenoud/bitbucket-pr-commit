@@ -19,7 +19,7 @@
             "https://*/projects/*/repos/*/pull-requests/*",
             "https://*/users/*/repos/*/pull-requests/*"
         ],
-        "css": ["commit.css"],
+        "css": ["style.css"],
         "js": ["content-script.js"]
     }]
 }
